@@ -47,6 +47,6 @@ module "ad_sync_lapp" {
   source         = "../modules/lapp"
   location       = var.location
   resource_group = var.resource_group
-  name           = "lapp-ad-sync-${var.app_name}-${var.env}"
+  name           = "lapp-${var.app_name}-ad-sync-${var.env}"
 }
 
