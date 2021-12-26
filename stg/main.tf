@@ -40,7 +40,7 @@ module "kvl" {
   secrets = merge(local.secrets, tomap({
 
   }))
-  allowed_principals = [module.ad_sync_lapp.principal_id]
+  allowed_principals = tomap({ ad_sync_principal = module.ad_sync_lapp.principal_id })
 }
 
 module "ad_sync_lapp" {
