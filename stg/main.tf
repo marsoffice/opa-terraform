@@ -40,15 +40,6 @@ module "ad_diag_setting" {
   event_hub_name                 = module.eh_ad_audit.name
 }
 
-module "appi" {
-  source         = "../modules/appi"
-  location       = var.location
-  name           = "appi-${var.app_name}-${var.env}"
-  resource_group = var.resource_group
-  retention      = 30
-  sku            = "PerGB2018"
-}
-
 module "kvl" {
   source         = "../modules/kvl"
   location       = var.location
