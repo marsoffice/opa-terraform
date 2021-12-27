@@ -3,5 +3,5 @@ output "name" {
 }
 
 output "authorization_rule_id" {
-  value = azurerm_eventhub_authorization_rule.eh_ar.id
+  value = azurerm_eventhub_namespace_authorization_rule.eh_ar.id
 }
