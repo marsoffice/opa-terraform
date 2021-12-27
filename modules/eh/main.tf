@@ -24,9 +24,9 @@ resource "azurerm_eventhub" "eh" {
 }
 
 resource "azurerm_eventhub_authorization_rule" "eh_ar" {
-  name                = var.name
-  namespace_name      = azurerm_eventhub_namespace.eh_ns.name
-  eventhub_name       = azurerm_eventhub.eh.name
+  name           = var.name
+  namespace_name = azurerm_eventhub_namespace.eh_ns.name
+  #eventhub_name       = azurerm_eventhub.eh.name
   resource_group_name = var.resource_group
   listen              = true
   send                = true
