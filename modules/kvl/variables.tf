@@ -13,7 +13,3 @@ variable "resource_group" {
 variable "secrets" {
   type = map(any)
 }
-
-variable "allowed_principals" {
-  type = map(string)
-}

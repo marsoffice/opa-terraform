@@ -8,7 +8,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.90"
+      version = "2.85"
     }
   }
 }
@@ -57,7 +57,6 @@ module "kvl" {
   secrets = merge(local.secrets, tomap({
 
   }))
-  allowed_principals = tomap({ ad_sync_principal = module.ad_sync_lapp.principal_id })
 }
 
 module "ad_sync_lapp" {

@@ -47,14 +47,3 @@ resource "azurerm_key_vault_secret" "secret" {
   key_vault_id = azurerm_key_vault.key_vault.id
   for_each     = var.secrets
 }
-
-resource "azurerm_key_vault_access_policy" "access_policy" {
-  key_vault_id = azurerm_key_vault.key_vault.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = each.value
-
-  secret_permissions = [
-    "Get",
-  ]
-  for_each = var.allowed_principals
-}
