@@ -36,7 +36,6 @@ module "eh_ad_audit" {
 module "ad_diag_setting" {
   source                         = "../modules/ad-diag-setting"
   name                           = "eh-audit-${var.env}"
-  event_hub_name                 = module.eh_ad_audit.name
   eventhub_authorization_rule_id = module.eh_ad_audit.authorization_rule_id
 }
 

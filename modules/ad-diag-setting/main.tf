@@ -7,6 +7,5 @@ resource "azurerm_monitor_aad_diagnostic_setting" "ad_diag_setting" {
       enabled = true
     }
   }
-  // eventhub_name                  = var.event_hub_name
   eventhub_authorization_rule_id = var.eventhub_authorization_rule_id
 }
