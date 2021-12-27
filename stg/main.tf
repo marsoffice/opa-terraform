@@ -33,11 +33,11 @@ module "eh_ad_audit" {
   zone_redundant = true
 }
 
-module "ad_diag_setting" {
-  source                         = "../modules/ad-diag-setting"
-  name                           = "eh-audit-${var.env}"
-  eventhub_authorization_rule_id = module.eh_ad_audit.authorization_rule_id
-}
+# module "ad_diag_setting" {
+#   source                         = "../modules/ad-diag-setting"
+#   name                           = "eh-audit-${var.env}"
+#   eventhub_authorization_rule_id = module.eh_ad_audit.authorization_rule_id
+# }
 
 module "appi" {
   source         = "../modules/appi"
