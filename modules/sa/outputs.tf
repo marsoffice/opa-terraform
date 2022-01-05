@@ -1,4 +1,4 @@
 
 output "id" {
-  value = azurerm_storage_account.sa.id
+  value = data.azurerm_storage_account.sa.id
 }

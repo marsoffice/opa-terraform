@@ -26,6 +26,6 @@ module "sa" {
 
 module "ad_diag_setting" {
   source             = "../modules/ad-diag-setting"
-  name               = "eh-audit-${var.env}"
+  name               = "sa-audit-${var.env}"
   storage_account_id = module.sa.id
 }
