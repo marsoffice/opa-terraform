@@ -1,6 +1,7 @@
 variable "name" {
   type = string
 }
-variable "storage_account_id" {
+
+variable "resource_group" {
   type = string
 }
