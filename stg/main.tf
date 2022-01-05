@@ -8,7 +8,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.85"
+      version = "2.90"
     }
   }
 }
@@ -39,21 +39,3 @@ module "ad_diag_setting" {
   eventhub_authorization_rule_id = module.eh_ad_audit.authorization_rule_id
   event_hub_name                 = module.eh_ad_audit.name
 }
-
-module "kvl" {
-  source         = "../modules/kvl"
-  location       = var.location
-  resource_group = var.resource_group
-  name           = "kvl-${var.app_name}-${var.env}"
-  secrets = merge(local.secrets, tomap({
-
-  }))
-}
-
-module "ad_sync_lapp" {
-  source         = "../modules/lapp"
-  location       = var.location
-  resource_group = var.resource_group
-  name           = "lapp-${var.app_name}-ad-sync-${var.env}"
-}
-
