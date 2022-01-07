@@ -25,16 +25,17 @@ locals {
 
 
 
-module "rg" {
-  source = "../modules/data-rg"
-  name = "rg-marsoffice"
-}
 
+module "rg" {
+  source = "../modules/rg"
+  name = "rg-${var.app_name}-${var.env}"
+  location = var.location
+}
 
 module "sa_marsoffice" {
   source         = "../modules/data-sa"
   name           = "samarsoffice"
-  resource_group = module.rg.name
+  resource_group = "rg-marsoffice"
 }
 
 

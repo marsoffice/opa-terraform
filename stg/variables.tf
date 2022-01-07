@@ -18,3 +18,8 @@ variable "resource_group" {
   type    = string
   default = "rg-marsoffice"
 }
+
+variable "location" {
+  type = string
+  default = "West Europe"
+}
