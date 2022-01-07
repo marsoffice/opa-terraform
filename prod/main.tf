@@ -23,9 +23,3 @@ module "sa" {
   name           = "samarsoffice"
   resource_group = "rg-marsoffice"
 }
-
-module "ad_diag_setting" {
-  source             = "../modules/ad-diag-setting"
-  name               = "sa-audit-${var.env}"
-  storage_account_id = module.sa.id
-}
