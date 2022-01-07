@@ -29,7 +29,7 @@ module "kvl" {
   source         = "../kvl"
   location       = var.location
   resource_group = var.resource_group
-  name           = "kvl-${var.app_name}-${replace(lower(var.location), " ", "")}-${var.env}"
+  name           = "kvl-${var.short_app_name}-${replace(lower(var.location), " ", "")}-${var.env}"
   secrets = merge(var.secrets, tomap({
     localsaconnectionstring      = module.sa.connection_string,
     marsofficesaconnectionstring = var.marsoffice_sa_connection_string
