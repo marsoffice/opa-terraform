@@ -19,7 +19,7 @@ module "sa" {
   source           = "../sa"
   location         = var.location
   resource_group   = var.resource_group
-  name             = "sa${var.app_name}${replace(lower(var.location), " ", "")}${var.env}"
+  name             = "sa${var.short_app_name}${replace(lower(var.location), " ", "")}${var.env}"
   tier             = "Standard"
   replication_type = "LRS"
   access_tier      = "Hot"
@@ -70,5 +70,5 @@ module "func_opa" {
   app_configs                = local.commonsettings
   appi_instrumentation_key   = module.appi.instrumentation_key
   func_env                   = var.env == "stg" ? "Staging" : "Production"
-  runtime = "custom"
+  runtime                    = "custom"
 }

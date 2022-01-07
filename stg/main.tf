@@ -43,6 +43,7 @@ module "zone_westeurope" {
   location                        = "West Europe"
   resource_group                  = module.rg.name
   app_name                        = var.app_name
+  short_app_name = var.short_app_name
   env                             = var.env
   secrets                         = local.secrets
   is_main                         = true

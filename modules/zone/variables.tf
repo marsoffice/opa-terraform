@@ -14,6 +14,10 @@ variable "app_name" {
   type = string
 }
 
+variable "short_app_name" {
+  type = string
+}
+
 variable "secrets" {
   type = map(string)
 }

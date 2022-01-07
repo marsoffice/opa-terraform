@@ -4,9 +4,15 @@ variable "env" {
 }
 
 variable "app_name" {
-  type = string
+  type    = string
   default = "marsoffice"
 }
+
+variable "short_app_name" {
+  type    = string
+  default = "mo"
+}
+
 
 variable "resource_group" {
   type    = string
