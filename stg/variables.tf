@@ -10,7 +10,7 @@ variable "app_name" {
 
 variable "short_app_name" {
   type    = string
-  default = "mo"
+  default = "moc"
 }
 
 
@@ -20,6 +20,6 @@ variable "resource_group" {
 }
 
 variable "location" {
-  type = string
+  type    = string
   default = "West Europe"
 }
