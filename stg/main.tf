@@ -17,8 +17,36 @@ provider "azurerm" {
   features {}
 }
 
-module "sa" {
-  source         = "../modules/sa"
+locals {
+  secrets = tomap({
+
+  })
+}
+
+
+
+module "rg" {
+  source = "../modules/data-rg"
+  name = "rg-marsoffice"
+}
+
+
+module "sa_marsoffice" {
+  source         = "../modules/data-sa"
   name           = "samarsoffice"
-  resource_group = "rg-marsoffice"
+  resource_group = module.rg.name
+}
+
+
+module "zone_westeurope" {
+  source                          = "../modules/zone"
+  location                        = "West Europe"
+  resource_group                  = module.rg.name
+  app_name                        = var.app_name
+  env                             = var.env
+  secrets                         = local.secrets
+  is_main                         = true
+  appi_retention                  = 30
+  appi_sku                        = "PerGB2018"
+  marsoffice_sa_connection_string = module.sa_marsoffice.connection_string
 }
