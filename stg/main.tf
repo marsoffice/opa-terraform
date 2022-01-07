@@ -16,3 +16,9 @@ terraform {
 provider "azurerm" {
   features {}
 }
+
+module "sa" {
+  source         = "../modules/sa"
+  name           = "samarsoffice"
+  resource_group = "rg-marsoffice"
+}
