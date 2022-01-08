@@ -67,10 +67,11 @@ module "func_opa" {
   storage_account_access_key = module.sa.access_key
   app_service_plan_id        = module.appsp.id
   kvl_id                     = module.kvl.id
-  app_configs                = merge(local.commonsettings, {
-    executablePath = "opa/opa"
+  app_configs = merge(local.commonsettings, {
+    executablePath               = "opa/opa",
+    FUNCTIONS_CUSTOMHANDLER_PORT = "8181"
   })
-  appi_instrumentation_key   = module.appi.instrumentation_key
-  func_env                   = var.env == "stg" ? "Staging" : "Production"
-  runtime                    = "custom"
+  appi_instrumentation_key = module.appi.instrumentation_key
+  func_env                 = var.env == "stg" ? "Staging" : "Production"
+  runtime                  = "custom"
 }
