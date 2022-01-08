@@ -90,5 +90,4 @@ module "func_opa_ad_bundle" {
   func_env                   = var.env == "stg" ? "Staging" : "Production"
   runtime                    = "dotnet"
   roles                      = local.ad_roles
-  count = var.env == "prod" ? 1 : 0
 }
