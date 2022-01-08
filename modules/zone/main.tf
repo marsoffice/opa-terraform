@@ -73,5 +73,5 @@ module "func_opa" {
   })
   appi_instrumentation_key = module.appi.instrumentation_key
   func_env                 = var.env == "stg" ? "Staging" : "Production"
-  runtime                  = "custom"
+  runtime                  = "Custom"
 }
