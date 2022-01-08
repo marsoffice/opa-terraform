@@ -54,6 +54,12 @@ module "sa_marsoffice" {
   resource_group = "rg-marsoffice"
 }
 
+module "graph_api_sp" {
+  source             = "../modules/data-ad-sp"
+  name               = "Microsoft Graph"
+  allowed_role_names = ["User.Read.All", "Group.Read.All", "Application.Read.All", "AppRoleAssignment.ReadWrite.All"]
+}
+
 
 module "zone_westeurope" {
   source                          = "../modules/zone"
@@ -68,6 +74,6 @@ module "zone_westeurope" {
   appi_retention                  = 30
   appi_sku                        = "PerGB2018"
   marsoffice_sa_connection_string = module.sa_marsoffice.connection_string
-  graph_api_object_id             = ""
-  graph_api_app_roles_ids         = tomap([])
+  graph_api_object_id             = module.graph_api_sp.object_id
+  graph_api_app_roles_ids         = module.graph_api_sp.app_roles_ids
 }
