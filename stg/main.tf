@@ -19,11 +19,11 @@ provider "azurerm" {
 
 locals {
   secrets = tomap({
-    opa_discovery_resource  = var.opa_discovery_resource,
-    opa_system_id           = var.opa_system_id,
-    opa_service_token       = var.opa_service_token,
-    opa_service_url         = var.opa_service_url,
-    opa_bundles_service_url = var.opa_bundles_service_url
+    opadiscoveryresource = var.opa_discovery_resource,
+    opasystemid          = var.opa_system_id,
+    opaservicetoken      = var.opa_service_token,
+    opaserviceurl        = var.opa_service_url,
+    opabundlesserviceurl = var.opa_bundles_service_url
   })
 }
 
