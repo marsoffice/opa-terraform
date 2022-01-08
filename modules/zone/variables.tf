@@ -22,6 +22,10 @@ variable "secrets" {
   type = map(string)
 }
 
+variable "configs" {
+  type = map(string)
+}
+
 variable "is_main" {
   type = bool
 }

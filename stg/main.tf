@@ -25,6 +25,10 @@ locals {
     opaserviceurl        = var.opa_service_url,
     opabundlesserviceurl = var.opa_bundles_service_url
   })
+  configs = tomap({
+    opaservicename = "styra",
+    opabundlesservicename = "styra-bundles"
+  })
 }
 
 
@@ -51,6 +55,7 @@ module "zone_westeurope" {
   short_app_name                  = var.short_app_name
   env                             = var.env
   secrets                         = local.secrets
+  configs = local.configs
   is_main                         = true
   appi_retention                  = 30
   appi_sku                        = "PerGB2018"

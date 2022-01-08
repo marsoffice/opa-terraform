@@ -49,7 +49,8 @@ locals {
     tomap({
       ismain   = var.is_main,
       location = var.location
-    })
+    }),
+    var.configs
   )
 
 
