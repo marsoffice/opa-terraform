@@ -48,8 +48,10 @@ locals {
   commonsettings = merge(
     zipmap(keys(var.secrets), [for x in keys(var.secrets) : "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/${x}/)"]),
     tomap({
-      ismain   = var.is_main,
-      location = var.location
+      ismain                       = var.is_main,
+      location                     = var.location,
+      localsaconnectionstring      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/localsaconnectionstring/)",
+      marsofficesaconnectionstring = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/marsofficesaconnectionstring/)"
     }),
     var.configs
   )
