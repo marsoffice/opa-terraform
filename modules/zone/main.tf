@@ -67,7 +67,9 @@ module "func_opa" {
   storage_account_access_key = module.sa.access_key
   app_service_plan_id        = module.appsp.id
   kvl_id                     = module.kvl.id
-  app_configs                = local.commonsettings
+  app_configs                = merge(local.commonsettings, {
+    executablePath = "opa/opa"
+  })
   appi_instrumentation_key   = module.appi.instrumentation_key
   func_env                   = var.env == "stg" ? "Staging" : "Production"
   runtime                    = "custom"
