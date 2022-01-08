@@ -47,10 +47,8 @@ locals {
   commonsettings = merge(
     zipmap(keys(var.secrets), [for x in keys(var.secrets) : "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/${x}/)"]),
     tomap({
-      ismain                       = var.is_main,
-      location                     = var.location,
-      localsaconnectionstring      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/localsaconnectionstring/)",
-      marsofficesaconnectionstring = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/marsofficesaconnectionstring/)",
+      ismain   = var.is_main,
+      location = var.location
     })
   )
 
@@ -68,7 +66,7 @@ module "func_opa" {
   app_service_plan_id        = module.appsp.id
   kvl_id                     = module.kvl.id
   app_configs = merge(local.commonsettings, {
-    executablePath               = "opa/opa"
+    executablePath = "opa/opa"
   })
   appi_instrumentation_key = module.appi.instrumentation_key
   func_env                 = var.env == "stg" ? "Staging" : "Production"
