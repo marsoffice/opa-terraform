@@ -68,8 +68,7 @@ module "func_opa" {
   app_service_plan_id        = module.appsp.id
   kvl_id                     = module.kvl.id
   app_configs = merge(local.commonsettings, {
-    executablePath               = "opa/opa",
-    FUNCTIONS_CUSTOMHANDLER_PORT = "8181"
+    executablePath               = "opa/opa"
   })
   appi_instrumentation_key = module.appi.instrumentation_key
   func_env                 = var.env == "stg" ? "Staging" : "Production"
