@@ -44,6 +44,7 @@ module "appsp" {
 }
 
 locals {
+  ad_roles = [for k, v in var.graph_api_app_roles_ids : "${var.graph_api_object_id},${v}"]
   commonsettings = merge(
     zipmap(keys(var.secrets), [for x in keys(var.secrets) : "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/${x}/)"]),
     tomap({
@@ -72,4 +73,21 @@ module "func_opa" {
   appi_instrumentation_key = module.appi.instrumentation_key
   func_env                 = var.env == "stg" ? "Staging" : "Production"
   runtime                  = "Custom"
+  roles                    = []
+}
+
+module "func_opa_ad_bundle" {
+  source                     = "../func"
+  location                   = var.location
+  resource_group             = var.resource_group
+  name                       = "func-${var.app_name}-opa-ad-bundle-${replace(lower(var.location), " ", "")}-${var.env}"
+  storage_account_name       = module.sa.name
+  storage_account_access_key = module.sa.access_key
+  app_service_plan_id        = module.appsp.id
+  kvl_id                     = module.kvl.id
+  app_configs                = local.commonsettings
+  appi_instrumentation_key   = module.appi.instrumentation_key
+  func_env                   = var.env == "stg" ? "Staging" : "Production"
+  runtime                    = "dotnet"
+  roles                      = local.ad_roles
 }

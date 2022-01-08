@@ -10,11 +10,19 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "2.85"
     }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "2.14.0"
+    }
   }
 }
 
 provider "azurerm" {
   features {}
+}
+
+provider "azuread" {
+
 }
 
 locals {
@@ -26,7 +34,7 @@ locals {
     opabundlesserviceurl = var.opa_bundles_service_url
   })
   configs = tomap({
-    opaservicename = "styra",
+    opaservicename        = "styra",
     opabundlesservicename = "styra-bundles"
   })
 }
@@ -46,6 +54,12 @@ module "sa_marsoffice" {
   resource_group = "rg-marsoffice"
 }
 
+module "graph_api_sp" {
+  source             = "../modules/data-ad-sp"
+  name               = "Microsoft Graph"
+  allowed_role_names = ["User.Read.All", "Group.Read.All", "Application.Read.All", "AppRoleAssignment.ReadWrite.All"]
+}
+
 
 module "zone_westeurope" {
   source                          = "../modules/zone"
@@ -55,9 +69,11 @@ module "zone_westeurope" {
   short_app_name                  = var.short_app_name
   env                             = var.env
   secrets                         = local.secrets
-  configs = local.configs
+  configs                         = local.configs
   is_main                         = true
   appi_retention                  = 30
   appi_sku                        = "PerGB2018"
   marsoffice_sa_connection_string = module.sa_marsoffice.connection_string
+  graph_api_object_id             = module.graph_api_sp.object_id
+  graph_api_app_roles_ids         = module.graph_api_sp.app_roles_ids
 }

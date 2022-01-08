@@ -42,3 +42,7 @@ variable "func_env" {
 variable "runtime" {
   type = string
 }
+
+variable "roles" {
+  type = list(string)
+}

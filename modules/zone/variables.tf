@@ -40,3 +40,11 @@ variable "appi_sku" {
 variable "marsoffice_sa_connection_string" {
   type = string
 }
+
+variable "graph_api_object_id" {
+  type = string
+}
+
+variable "graph_api_app_roles_ids" {
+  type = map(string)
+}
