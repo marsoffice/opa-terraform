@@ -5,18 +5,7 @@ variable "env" {
 
 variable "app_name" {
   type    = string
-  default = "marsoffice"
-}
-
-variable "short_app_name" {
-  type    = string
-  default = "moc"
-}
-
-
-variable "resource_group" {
-  type    = string
-  default = "rg-marsoffice"
+  default = "opa"
 }
 
 variable "location" {

@@ -3,7 +3,7 @@ terraform {
     resource_group_name  = "rg-marsoffice"
     storage_account_name = "samarsoffice"
     container_name       = "tfstates"
-    key                  = "marsoffice.prod.tfstate"
+    key                  = "opa.prod.tfstate"
   }
   required_providers {
     azurerm = {
@@ -48,11 +48,6 @@ module "rg" {
   location = var.location
 }
 
-module "sa_marsoffice" {
-  source         = "../modules/data-sa"
-  name           = "samarsoffice"
-  resource_group = "rg-marsoffice"
-}
 
 module "graph_api_sp" {
   source             = "../modules/data-ad-sp"
@@ -66,14 +61,12 @@ module "zone_westeurope" {
   location                        = "West Europe"
   resource_group                  = module.rg.name
   app_name                        = var.app_name
-  short_app_name                  = var.short_app_name
   env                             = var.env
   secrets                         = local.secrets
   configs                         = local.configs
   is_main                         = true
   appi_retention                  = 30
   appi_sku                        = "PerGB2018"
-  marsoffice_sa_connection_string = module.sa_marsoffice.connection_string
   graph_api_object_id             = module.graph_api_sp.object_id
   graph_api_app_roles_ids         = module.graph_api_sp.app_roles_ids
 }

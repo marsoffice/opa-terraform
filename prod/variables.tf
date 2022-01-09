@@ -5,19 +5,9 @@ variable "env" {
 
 variable "app_name" {
   type    = string
-  default = "marsoffice"
+  default = "opa"
 }
 
-variable "short_app_name" {
-  type    = string
-  default = "moc"
-}
-
-
-variable "resource_group" {
-  type    = string
-  default = "rg-marsoffice"
-}
 
 variable "location" {
   type    = string
@@ -29,21 +19,21 @@ variable "opa_discovery_resource" {
 }
 
 variable "opa_system_id" {
-  type      = string
+  type = string
   sensitive = true
 }
 
 variable "opa_service_token" {
-  type      = string
+  type = string
   sensitive = true
 }
 
 variable "opa_service_url" {
-  type      = string
+  type = string
   sensitive = true
 }
 
 variable "opa_bundles_service_url" {
-  type      = string
+  type = string
   sensitive = true
 }

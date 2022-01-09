@@ -19,7 +19,7 @@ module "sa" {
   source           = "../sa"
   location         = var.location
   resource_group   = var.resource_group
-  name             = "sa${var.short_app_name}${replace(lower(var.location), " ", "")}${var.env}"
+  name             = "sa${var.app_name}${replace(lower(var.location), " ", "")}${var.env}"
   tier             = "Standard"
   replication_type = "LRS"
   access_tier      = "Hot"
@@ -29,10 +29,9 @@ module "kvl" {
   source         = "../kvl"
   location       = var.location
   resource_group = var.resource_group
-  name           = "kvl-${var.short_app_name}-${replace(lower(var.location), " ", "")}-${var.env}"
+  name           = "kvl-${var.app_name}-${replace(lower(var.location), " ", "")}-${var.env}"
   secrets = merge(var.secrets, tomap({
-    localsaconnectionstring      = module.sa.connection_string,
-    marsofficesaconnectionstring = var.marsoffice_sa_connection_string
+    localsaconnectionstring      = module.sa.connection_string
   }))
 }
 
@@ -50,19 +49,18 @@ locals {
     tomap({
       ismain                       = var.is_main,
       location                     = var.location,
-      localsaconnectionstring      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/localsaconnectionstring/)",
-      marsofficesaconnectionstring = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/marsofficesaconnectionstring/)"
+      localsaconnectionstring      = "@Microsoft.KeyVault(SecretUri=${module.kvl.url}secrets/localsaconnectionstring/)"
     }),
     var.configs
   )
 }
 
 
-module "func_opa" {
+module "func_opa_agent" {
   source                     = "../func"
   location                   = var.location
   resource_group             = var.resource_group
-  name                       = "func-${var.app_name}-opa-${replace(lower(var.location), " ", "")}-${var.env}"
+  name                       = "func-${var.app_name}-agent-${replace(lower(var.location), " ", "")}-${var.env}"
   storage_account_name       = module.sa.name
   storage_account_access_key = module.sa.access_key
   app_service_plan_id        = module.appsp.id
@@ -80,7 +78,7 @@ module "func_opa_ad_bundle" {
   source                     = "../func"
   location                   = var.location
   resource_group             = var.resource_group
-  name                       = "func-${var.app_name}-opa-ad-bundle-${replace(lower(var.location), " ", "")}-${var.env}"
+  name                       = "func-${var.app_name}-ad-bundle-${replace(lower(var.location), " ", "")}-${var.env}"
   storage_account_name       = module.sa.name
   storage_account_access_key = module.sa.access_key
   app_service_plan_id        = module.appsp.id
