@@ -12,6 +12,11 @@ env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
   TF_REGISTRY_CLIENT_TIMEOUT: "20"
+  opa_discovery_resource: ${{ secrets.opa_discovery_resource }}
+  opa_system_id: ${{ secrets.opa_system_id }}
+  opa_service_token: ${{ secrets.opa_service_token }}
+  opa_service_url: ${{ secrets.opa_service_url }}
+  opa_bundles_service_url: ${{ secrets.opa_bundles_service_url }}
 
 defaults:
   run:
@@ -23,12 +28,6 @@ jobs:
   plan_ci:
     runs-on: ubuntu-latest
     environment: stg
-    env:
-      opa_discovery_resource: ${{ secrets.opa_discovery_resource }}
-      opa_system_id: ${{ secrets.opa_system_id }}
-      opa_service_token: ${{ secrets.opa_service_token }}
-      opa_service_url: ${{ secrets.opa_service_url }}
-      opa_bundles_service_url: ${{ secrets.opa_bundles_service_url }}
     if: ${{ success() && (github.event_name == 'pull_request' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop')) }}
     steps:
       - name: git checkout
@@ -60,12 +59,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: stg
     if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/develop' }}
-    env:
-      opa_discovery_resource: ${{ secrets.opa_discovery_resource }}
-      opa_system_id: ${{ secrets.opa_system_id }}
-      opa_service_token: ${{ secrets.opa_service_token }}
-      opa_service_url: ${{ secrets.opa_service_url }}
-      opa_bundles_service_url: ${{ secrets.opa_bundles_service_url }}
     steps:
       - name: git checkout
         uses: actions/checkout@v2
@@ -102,12 +95,6 @@ jobs:
   plan_prod:
     runs-on: ubuntu-latest
     if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
-    env:
-      opa_discovery_resource: ${{ secrets.opa_discovery_resource }}
-      opa_system_id: ${{ secrets.opa_system_id }}
-      opa_service_token: ${{ secrets.opa_service_token }}
-      opa_service_url: ${{ secrets.opa_service_url }}
-      opa_bundles_service_url: ${{ secrets.opa_bundles_service_url }}
     environment: prod
     steps:
       - name: git checkout
@@ -146,12 +133,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [plan_stg]
     if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/develop' }}
-    env:
-      opa_discovery_resource: ${{ secrets.opa_discovery_resource }}
-      opa_system_id: ${{ secrets.opa_system_id }}
-      opa_service_token: ${{ secrets.opa_service_token }}
-      opa_service_url: ${{ secrets.opa_service_url }}
-      opa_bundles_service_url: ${{ secrets.opa_bundles_service_url }}
     environment: stg
     steps:
       - name: git checkout
@@ -180,12 +161,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [plan_prod]
     if: ${{ success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/master' }}
-    env:
-      opa_discovery_resource: ${{ secrets.opa_discovery_resource }}
-      opa_system_id: ${{ secrets.opa_system_id }}
-      opa_service_token: ${{ secrets.opa_service_token }}
-      opa_service_url: ${{ secrets.opa_service_url }}
-      opa_bundles_service_url: ${{ secrets.opa_bundles_service_url }}
     environment: prod
     steps:
       - name: git checkout
